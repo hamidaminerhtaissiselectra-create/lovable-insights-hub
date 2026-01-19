@@ -39,6 +39,7 @@ import ServiceMarcheReguliere from "./pages/services/ServiceMarcheReguliere";
 import BlogArticle from "./pages/BlogArticle";
 import Aide from "./pages/Aide";
 import FindWalkers from "./pages/FindWalkers";
+import DashboardPreview from "./pages/DashboardPreview";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ const App = () => (
           <InstallPrompt />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/dashboard-preview" element={<DashboardPreview />} />
             <Route path="/services/:slug" element={<ServicePage />} />
             {/* Service Pillar Pages - 6 SEO Pillars */}
             <Route path="/services/promenade" element={<ServicePromenade />} />
