@@ -1,4 +1,1 @@
 project_id = "aqitjhaotpautjywoeys"
-
-[functions.geolocation]
-verify_jwt = false
