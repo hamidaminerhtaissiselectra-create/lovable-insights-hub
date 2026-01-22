@@ -2,14 +2,13 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { 
-  Dog, Calendar, Search, Heart, MessageCircle, Gift, User, 
-  MapPin, Bell, Sparkles, ArrowRight, Settings, Star, Plus
+  Dog, Calendar, Search, MessageCircle, Gift, User, 
+  Sparkles, ArrowRight, Settings, Plus
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -126,12 +125,14 @@ const OwnerDashboard = () => {
   const profileCompletion = () => {
     if (!profile) return 0;
     let score = 0;
-    if (profile.full_name) score += 25;
+    if (profile.first_name || profile.last_name) score += 25;
     if (profile.avatar_url) score += 25;
     if (profile.phone) score += 25;
-    if (profile.address) score += 25;
+    if (profile.city || profile.address) score += 25;
     return score;
   };
+
+  const displayName = profile?.first_name || profile?.email?.split('@')[0] || 'Utilisateur';
 
   if (loading) return <TabLoader />;
 
@@ -164,12 +165,12 @@ const OwnerDashboard = () => {
               <div className="relative">
                 <Avatar className="h-20 w-20 md:h-24 md:w-24 border-4 border-background shadow-xl">
                   <AvatarImage src={profile?.avatar_url} />
-                  <AvatarFallback className="text-2xl bg-primary/10">{profile?.full_name?.charAt(0) || 'U'}</AvatarFallback>
+                  <AvatarFallback className="text-2xl bg-primary/10">{displayName.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <div className="absolute -bottom-2 -right-2 bg-green-500 h-6 w-6 rounded-full border-4 border-background" />
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Bonjour, {profile?.full_name?.split(' ')[0] || 'Hamid'} 👋</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Bonjour, {displayName} 👋</h1>
                 <p className="text-muted-foreground mt-1 text-lg">Heureux de vous revoir parmi nous.</p>
               </div>
             </div>

@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { 
   Upload, FileText, Shield, Camera, Award, CheckCircle, 
-  Clock, AlertCircle, X, Eye, Trash2, RefreshCw
+  Clock, AlertCircle, Eye, Trash2, RefreshCw
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -13,7 +13,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -78,14 +77,18 @@ const DocumentUpload = ({ walkerId, onDocumentUploaded }: DocumentUploadProps) =
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
+  const [initialized, setInitialized] = useState(false);
 
   // Fetch existing documents on mount
-  useState(() => {
-    fetchDocuments();
-  });
+  useEffect(() => {
+    if (!initialized && walkerId) {
+      fetchDocuments();
+      setInitialized(true);
+    }
+  }, [walkerId, initialized]);
 
   const fetchDocuments = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('walker_documents')
       .select('*')
       .eq('walker_id', walkerId);
@@ -135,7 +138,7 @@ const DocumentUpload = ({ walkerId, onDocumentUploaded }: DocumentUploadProps) =
       }, 200);
 
       // Upload to Supabase Storage
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('walker-documents')
         .upload(fileName, file, {
           cacheControl: '3600',
