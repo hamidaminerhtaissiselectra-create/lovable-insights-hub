@@ -2,14 +2,13 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { 
   LayoutDashboard, Calendar, Euro, Clock, MessageCircle, 
-  BarChart3, User, MapPin, Shield, Sparkles, ArrowRight, Wallet, Search
+  BarChart3, User, Sparkles, ArrowRight, Wallet, Search
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -105,24 +104,57 @@ const WalkerDashboardPage = () => {
 
   const fetchWalkerData = async (userId: string) => {
     try {
+      // Fetch walker profile using user_id, not id
       const { data: walkerData } = await supabase
         .from('walker_profiles')
         .select('*')
-        .eq('id', userId)
+        .eq('user_id', userId)
         .single();
 
       setWalkerProfile(walkerData);
 
-      // Fetch stats (mocked for now, replace with real queries)
+      // Fetch real stats from database
+      const [bookingsRes, earningsRes] = await Promise.all([
+        supabase
+          .from('bookings')
+          .select('id, status, price, scheduled_date')
+          .eq('walker_id', userId),
+        supabase
+          .from('walker_earnings')
+          .select('amount, net_amount, status, created_at')
+          .eq('walker_id', userId)
+      ]);
+
+      const bookings = bookingsRes.data || [];
+      const earnings = earningsRes.data || [];
+      
+      const now = new Date();
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      
+      const completedBookings = bookings.filter(b => b.status === 'completed');
+      const completedThisMonth = completedBookings.filter(b => 
+        new Date(b.scheduled_date) >= startOfMonth
+      );
+      
+      const monthlyEarnings = earnings
+        .filter(e => new Date(e.created_at || '') >= startOfMonth)
+        .reduce((sum, e) => sum + Number(e.net_amount || 0), 0);
+        
+      const pendingEarnings = earnings
+        .filter(e => e.status === 'pending')
+        .reduce((sum, e) => sum + Number(e.net_amount || 0), 0);
+
       setStats({
-        monthlyEarnings: 428.50,
-        pendingEarnings: 125.00,
-        totalWalks: 48,
-        completedThisMonth: 12,
-        averageRating: 4.9,
-        totalReviews: 24,
-        pendingRequests: 3,
-        upcomingMissions: 5
+        monthlyEarnings: monthlyEarnings || completedThisMonth.reduce((sum, b) => sum + Number(b.price || 0), 0) * 0.85,
+        pendingEarnings,
+        totalWalks: completedBookings.length,
+        completedThisMonth: completedThisMonth.length,
+        averageRating: walkerData?.rating || 0,
+        totalReviews: walkerData?.total_reviews || 0,
+        pendingRequests: bookings.filter(b => b.status === 'pending').length,
+        upcomingMissions: bookings.filter(b => 
+          b.status === 'confirmed' && new Date(b.scheduled_date) >= now
+        ).length
       });
     } catch (error) {
       console.error("Error fetching walker data:", error);
