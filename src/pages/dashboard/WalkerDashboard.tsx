@@ -204,12 +204,12 @@ const WalkerDashboardPage = () => {
               <div className="relative">
                 <Avatar className="h-20 w-20 md:h-24 md:w-24 border-4 border-background shadow-xl">
                   <AvatarImage src={profile?.avatar_url} />
-                  <AvatarFallback className="text-2xl bg-primary/10">{profile?.full_name?.charAt(0) || 'W'}</AvatarFallback>
+                  <AvatarFallback className="text-2xl bg-primary/10">{profile?.first_name?.charAt(0) || 'P'}</AvatarFallback>
                 </Avatar>
                 <div className="absolute -bottom-2 -right-2 bg-green-500 h-6 w-6 rounded-full border-4 border-background" />
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Espace Promeneur, {profile?.full_name?.split(' ')[0]} 👋</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Espace Promeneur, {profile?.first_name || 'Promeneur'} 👋</h1>
                 <p className="text-muted-foreground mt-1 text-lg">Prêt pour de nouvelles aventures ?</p>
               </div>
             </div>
