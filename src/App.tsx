@@ -77,6 +77,8 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             {/* Owner Dashboard - Unified with 7 tabs */}
             <Route path="/dashboard" element={<OwnerDashboard />} />
+            <Route path="/dashboard-proprietaire" element={<OwnerDashboard />} />
+            <Route path="/mon-espace" element={<OwnerDashboard />} />
             {/* Redirects from old pages to dashboard tabs */}
             <Route path="/dogs/add" element={<Navigate to="/dashboard?tab=chiens" replace />} />
             <Route path="/bookings" element={<Navigate to="/dashboard?tab=reservations" replace />} />
@@ -84,6 +86,8 @@ const App = () => (
             <Route path="/profile" element={<Navigate to="/dashboard?tab=profil" replace />} />
             {/* Walker Dashboard - Unified with 7 tabs */}
             <Route path="/walker/dashboard" element={<WalkerDashboardPage />} />
+            <Route path="/dashboard-promeneur" element={<WalkerDashboardPage />} />
+            <Route path="/espace-promeneur" element={<WalkerDashboardPage />} />
             <Route path="/walker/earnings" element={<Navigate to="/walker/dashboard?tab=gains" replace />} />
             {/* Standalone pages */}
             <Route path="/walkers" element={<FindWalkers />} />
