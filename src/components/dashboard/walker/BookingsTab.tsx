@@ -6,26 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calendar, CheckCircle, Clock, XCircle, MapPin, 
-  Dog, MessageCircle, Phone, Eye, AlertTriangle
+  Dog, MessageCircle, Eye
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { SOSButton } from "@/components/dashboard/shared/SOSButton";
+import { CancelBookingDialog } from "@/components/booking/CancelBookingDialog";
 
 const WalkerBookingsTab = () => {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<any[]>([]);
   const [filter, setFilter] = useState("pending");
   const [loading, setLoading] = useState(true);
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [cancelBooking, setCancelBooking] = useState<any>(null);
 
   useEffect(() => { fetchBookings(); }, []);
 
   const fetchBookings = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return;
-    
-    setCurrentUserId(session.user.id);
     
     const { data } = await supabase
       .from('bookings')
@@ -250,6 +249,15 @@ const WalkerBookingsTab = () => {
                             <MessageCircle className="h-4 w-4" />
                             Message
                           </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => setCancelBooking(booking)}
+                            className="gap-1 text-destructive hover:text-destructive"
+                          >
+                            <XCircle className="h-4 w-4" />
+                            Annuler
+                          </Button>
                           <SOSButton 
                             bookingId={booking.id}
                             ownerId={booking.owner_id}
@@ -275,6 +283,18 @@ const WalkerBookingsTab = () => {
             ))}
           </AnimatePresence>
         </div>
+      )}
+
+      {/* Cancel Dialog */}
+      {cancelBooking && (
+        <CancelBookingDialog
+          open={!!cancelBooking}
+          onOpenChange={(open) => !open && setCancelBooking(null)}
+          bookingId={cancelBooking.id}
+          dogName={cancelBooking.dogs?.name}
+          scheduledDate={cancelBooking.scheduled_date}
+          onSuccess={fetchBookings}
+        />
       )}
     </motion.div>
   );

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calendar, CheckCircle, Clock, XCircle, MapPin, 
-  Dog, MessageCircle, Eye, Download, ExternalLink
+  Dog, MessageCircle, Eye, Download, ExternalLink, Star
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,12 +17,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ReviewDialog } from "@/components/booking/ReviewDialog";
+import { CancelBookingDialog } from "@/components/booking/CancelBookingDialog";
 
 const BookingsTab = () => {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("upcoming");
+  const [reviewBooking, setReviewBooking] = useState<any>(null);
+  const [cancelBooking, setCancelBooking] = useState<any>(null);
   const { exportBooking, exportBookings, openGoogleCalendar } = useCalendarExport();
 
   useEffect(() => { fetchBookings(); }, []);
@@ -272,6 +276,33 @@ const BookingsTab = () => {
                         </Button>
                       )}
 
+                      {/* Review button for completed bookings */}
+                      {booking.status === 'completed' && booking.walker_id && (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => setReviewBooking(booking)}
+                          className="gap-1"
+                        >
+                          <Star className="h-4 w-4" />
+                          Avis
+                        </Button>
+                      )}
+
+                      {/* Cancel button for upcoming bookings */}
+                      {(booking.status === 'pending' || booking.status === 'confirmed') && 
+                       new Date(booking.scheduled_date) >= new Date() && (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => setCancelBooking(booking)}
+                          className="gap-1 text-destructive hover:text-destructive"
+                        >
+                          <XCircle className="h-4 w-4" />
+                          Annuler
+                        </Button>
+                      )}
+
                       {/* Calendar dropdown */}
                       {booking.status !== 'cancelled' && new Date(booking.scheduled_date) >= new Date() && (
                         <DropdownMenu>
@@ -310,6 +341,30 @@ const BookingsTab = () => {
             ))}
           </AnimatePresence>
         </div>
+      )}
+
+      {/* Review Dialog */}
+      {reviewBooking && (
+        <ReviewDialog
+          open={!!reviewBooking}
+          onOpenChange={(open) => !open && setReviewBooking(null)}
+          bookingId={reviewBooking.id}
+          reviewedId={reviewBooking.walker_id}
+          dogName={reviewBooking.dogs?.name}
+          onSuccess={fetchBookings}
+        />
+      )}
+
+      {/* Cancel Dialog */}
+      {cancelBooking && (
+        <CancelBookingDialog
+          open={!!cancelBooking}
+          onOpenChange={(open) => !open && setCancelBooking(null)}
+          bookingId={cancelBooking.id}
+          dogName={cancelBooking.dogs?.name}
+          scheduledDate={cancelBooking.scheduled_date}
+          onSuccess={fetchBookings}
+        />
       )}
     </motion.div>
   );
