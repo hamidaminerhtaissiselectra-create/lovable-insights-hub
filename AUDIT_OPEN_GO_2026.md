@@ -13,7 +13,8 @@
 | **Phase 2 : Pages Piliers** | ✅ 100% | Accueil + 6 Services |
 | **Phase 3 : Structure Profonde** | ✅ 100% | @graph, DepartmentZone, Silotage |
 | **Phase 4 : Preuves d'Expérience** | ✅ 100% | 8 Avis + 3 Études de cas |
-| **Phase 5 : Backend (Supabase)** | ⏳ 60% | Realtime OK, Stripe à faire |
+| **Phase 5 : Backend (Supabase)** | ⏳ 75% | Realtime OK, Litiges OK, Stripe à faire |
+| **Phase 6 : Administration** | ✅ 80% | Dashboard admin + Gestion litiges |
 
 ---
 
@@ -91,16 +92,18 @@
 - [x] **BookingSteps** - Étapes de réservation animées (4 steps)
 - [x] **FindWalkers** - Page recherche avec filtres intégrés
 
-### Fonctionnalités Litiges & Incidents (Nouveau ✅)
+### Fonctionnalités Litiges & Incidents (COMPLET ✅)
 
 - [x] **Table `walk_proofs`** - Preuves photo avec validation
 - [x] **Table `disputes`** - Litiges avec médiation admin
 - [x] **Table `incident_reports`** - Signalements retards/absences
 - [x] **ReviewDialog** - Avis post-service avec notation 5 étoiles
 - [x] **CancelBookingDialog** - Annulation avec motif
-- [x] **ReportIncidentDialog** - Signalement incident
+- [x] **ReportIncidentDialog** - Signalement incident (owner + walker)
 - [x] **OpenDisputeDialog** - Ouverture litige
-- [x] **Admin Litiges Tab** - Gestion litiges dans back-office
+- [x] **Admin Litiges Tab** - Gestion complète dans back-office
+- [x] **Walker Incident Button** - Signalement depuis dashboard promeneur
+- [x] **WalkProofUpload** - Upload et validation preuves photo
 
 ---
 
@@ -163,6 +166,9 @@ VALUES ('VOTRE_USER_ID', 'admin');
 | `notifications` | Notifications | ✅ | ✅ |
 | `favorites` | Favoris | ✅ | ❌ |
 | `referrals` | Parrainage | ✅ | ❌ |
+| `walk_proofs` | Preuves photo | ✅ | ❌ |
+| `disputes` | Litiges | ✅ | ❌ |
+| `incident_reports` | Signalements | ✅ | ❌ |
 
 ---
 
@@ -199,6 +205,13 @@ Ces actions sont nécessaires mais ne concernent pas le code :
 ---
 
 ## 📝 NOTES DE MISE À JOUR
+
+### 25/01/2026 - Finalisation Litiges et Incidents
+- ✅ Bouton signalement incident ajouté au dashboard promeneur
+- ✅ Intégration ReportIncidentDialog dans WalkerBookingsTab
+- ✅ Documentation mise à jour (CAHIER_DES_CHARGES + AUDIT)
+- ✅ Phase 5 Backend passée à 75%
+- ✅ Phase 6 Administration passée à 80%
 
 ### 29/12/2025 - Mise à jour Backend Temps Réel
 - ✅ Supabase Realtime activé sur `bookings`, `notifications`, `messages`

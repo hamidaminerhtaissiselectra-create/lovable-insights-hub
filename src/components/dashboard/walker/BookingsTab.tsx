@@ -6,12 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calendar, CheckCircle, Clock, XCircle, MapPin, 
-  Dog, MessageCircle, Eye
+  Dog, MessageCircle, Eye, AlertTriangle
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { SOSButton } from "@/components/dashboard/shared/SOSButton";
 import { CancelBookingDialog } from "@/components/booking/CancelBookingDialog";
+import { ReportIncidentDialog } from "@/components/booking/ReportIncidentDialog";
 
 const WalkerBookingsTab = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const WalkerBookingsTab = () => {
   const [filter, setFilter] = useState("pending");
   const [loading, setLoading] = useState(true);
   const [cancelBooking, setCancelBooking] = useState<any>(null);
+  const [incidentBooking, setIncidentBooking] = useState<any>(null);
 
   useEffect(() => { fetchBookings(); }, []);
 
@@ -252,6 +254,15 @@ const WalkerBookingsTab = () => {
                           <Button 
                             size="sm" 
                             variant="outline"
+                            onClick={() => setIncidentBooking(booking)}
+                            className="gap-1 text-amber-600 hover:text-amber-700"
+                          >
+                            <AlertTriangle className="h-4 w-4" />
+                            Incident
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
                             onClick={() => setCancelBooking(booking)}
                             className="gap-1 text-destructive hover:text-destructive"
                           >
@@ -293,6 +304,17 @@ const WalkerBookingsTab = () => {
           bookingId={cancelBooking.id}
           dogName={cancelBooking.dogs?.name}
           scheduledDate={cancelBooking.scheduled_date}
+          onSuccess={fetchBookings}
+        />
+      )}
+
+      {/* Incident Dialog */}
+      {incidentBooking && (
+        <ReportIncidentDialog
+          open={!!incidentBooking}
+          onOpenChange={(open) => !open && setIncidentBooking(null)}
+          bookingId={incidentBooking.id}
+          dogName={incidentBooking.dogs?.name}
           onSuccess={fetchBookings}
         />
       )}
