@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  Users, Dog, Calendar, Euro, TrendingUp, AlertCircle,
-  CheckCircle, XCircle, Clock, FileText, Shield, Eye,
-  BarChart3, Activity, UserCheck, UserX
+  Users, Dog, Calendar, Euro, Shield, Scale, AlertTriangle,
+  BarChart3, Activity, CheckCircle, XCircle, Clock
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +33,8 @@ const AdminDashboard = () => {
   });
   const [recentBookings, setRecentBookings] = useState<any[]>([]);
   const [recentUsers, setRecentUsers] = useState<any[]>([]);
+  const [disputes, setDisputes] = useState<any[]>([]);
+  const [incidents, setIncidents] = useState<any[]>([]);
 
   useEffect(() => {
     checkAuth();
@@ -112,6 +113,20 @@ const AdminDashboard = () => {
         .limit(5);
       setRecentUsers(recentUsersData || []);
 
+      // Fetch disputes
+      const { data: disputesData } = await (supabase as any)
+        .from('disputes')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setDisputes(disputesData || []);
+
+      // Fetch incidents
+      const { data: incidentsData } = await (supabase as any)
+        .from('incident_reports')
+        .select('*')
+        .order('reported_at', { ascending: false });
+      setIncidents(incidentsData || []);
+
       setStats({
         totalUsers: profilesData?.length || 0,
         totalOwners: owners,
@@ -130,6 +145,56 @@ const AdminDashboard = () => {
       toast({ title: "Erreur", description: error.message, variant: "destructive" });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResolveDispute = async (disputeId: string, status: string) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { error } = await (supabase as any)
+        .from('disputes')
+        .update({
+          status,
+          resolved_by: session.user.id,
+          resolved_at: new Date().toISOString()
+        })
+        .eq('id', disputeId);
+
+      if (error) throw error;
+
+      toast({
+        title: status === 'resolved' ? "Litige résolu" : "Litige rejeté",
+        description: "Le statut du litige a été mis à jour"
+      });
+
+      fetchAdminStats();
+    } catch (error: any) {
+      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const handleResolveIncident = async (incidentId: string) => {
+    try {
+      const { error } = await (supabase as any)
+        .from('incident_reports')
+        .update({
+          status: 'resolved',
+          resolved_at: new Date().toISOString()
+        })
+        .eq('id', incidentId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Incident traité",
+        description: "L'incident a été marqué comme résolu"
+      });
+
+      fetchAdminStats();
+    } catch (error: any) {
+      toast({ title: "Erreur", description: error.message, variant: "destructive" });
     }
   };
 
@@ -231,8 +296,16 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="bookings" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="bookings">Réservations</TabsTrigger>
+            <TabsTrigger value="disputes" className="gap-1">
+              Litiges
+              {disputes.filter(d => d.status === 'open').length > 0 && (
+                <Badge variant="destructive" className="ml-1 h-5 px-1.5 text-xs">
+                  {disputes.filter(d => d.status === 'open').length}
+                </Badge>
+              )}
+            </TabsTrigger>
             <TabsTrigger value="users">Utilisateurs</TabsTrigger>
             <TabsTrigger value="stats">Statistiques</TabsTrigger>
           </TabsList>
@@ -309,6 +382,119 @@ const AdminDashboard = () => {
                         </div>
                       </div>
                     ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Disputes Tab */}
+          <TabsContent value="disputes">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Scale className="h-5 w-5" />
+                  Litiges et Incidents
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {disputes.length === 0 && incidents.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Scale className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+                    <p className="text-muted-foreground">Aucun litige ou incident signalé</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {/* Open Disputes */}
+                    {disputes.filter(d => d.status === 'open').length > 0 && (
+                      <div>
+                        <h4 className="font-medium mb-3 flex items-center gap-2">
+                          <AlertTriangle className="h-4 w-4 text-destructive" />
+                          Litiges ouverts ({disputes.filter(d => d.status === 'open').length})
+                        </h4>
+                        <div className="space-y-3">
+                          {disputes.filter(d => d.status === 'open').map(dispute => (
+                            <div key={dispute.id} className="p-4 border rounded-lg bg-destructive/5 border-destructive/20">
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <Badge variant="destructive">{dispute.type}</Badge>
+                                    <Badge variant="outline">{dispute.reason}</Badge>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground line-clamp-2">
+                                    {dispute.description}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground mt-2">
+                                    Signalé le {new Date(dispute.created_at).toLocaleDateString('fr-FR')}
+                                  </p>
+                                </div>
+                                <div className="flex gap-2">
+                                  <Button 
+                                    size="sm" 
+                                    variant="outline"
+                                    onClick={() => handleResolveDispute(dispute.id, 'resolved')}
+                                  >
+                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    Résoudre
+                                  </Button>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost"
+                                    onClick={() => handleResolveDispute(dispute.id, 'rejected')}
+                                  >
+                                    <XCircle className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Pending Incidents */}
+                    {incidents.filter(i => i.status === 'pending').length > 0 && (
+                      <div>
+                        <h4 className="font-medium mb-3 flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-amber-500" />
+                          Incidents en attente ({incidents.filter(i => i.status === 'pending').length})
+                        </h4>
+                        <div className="space-y-3">
+                          {incidents.filter(i => i.status === 'pending').map(incident => (
+                            <div key={incident.id} className="p-4 border rounded-lg">
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                  <Badge variant="secondary" className="mb-2">{incident.type}</Badge>
+                                  {incident.description && (
+                                    <p className="text-sm text-muted-foreground">
+                                      {incident.description}
+                                    </p>
+                                  )}
+                                  <p className="text-xs text-muted-foreground mt-2">
+                                    Signalé le {new Date(incident.reported_at).toLocaleDateString('fr-FR')}
+                                  </p>
+                                </div>
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleResolveIncident(incident.id)}
+                                >
+                                  Traiter
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Resolved items summary */}
+                    <div className="pt-4 border-t">
+                      <p className="text-sm text-muted-foreground">
+                        {disputes.filter(d => d.status !== 'open').length} litiges résolus • 
+                        {incidents.filter(i => i.status !== 'pending').length} incidents traités
+                      </p>
+                    </div>
                   </div>
                 )}
               </CardContent>

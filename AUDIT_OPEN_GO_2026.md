@@ -91,6 +91,17 @@
 - [x] **BookingSteps** - Étapes de réservation animées (4 steps)
 - [x] **FindWalkers** - Page recherche avec filtres intégrés
 
+### Fonctionnalités Litiges & Incidents (Nouveau ✅)
+
+- [x] **Table `walk_proofs`** - Preuves photo avec validation
+- [x] **Table `disputes`** - Litiges avec médiation admin
+- [x] **Table `incident_reports`** - Signalements retards/absences
+- [x] **ReviewDialog** - Avis post-service avec notation 5 étoiles
+- [x] **CancelBookingDialog** - Annulation avec motif
+- [x] **ReportIncidentDialog** - Signalement incident
+- [x] **OpenDisputeDialog** - Ouverture litige
+- [x] **Admin Litiges Tab** - Gestion litiges dans back-office
+
 ---
 
 ## ⏳ ÉLÉMENTS À IMPLÉMENTER
@@ -100,7 +111,9 @@
 - [ ] **Intégration Stripe Escrow** - Paiement sécurisé avec rétention
 - [ ] **Emails Transactionnels** - Confirmations de réservation
 - [x] ~~**Notifications temps réel**~~ - ✅ Websockets/Supabase Realtime configuré
-- [ ] **Système de messagerie complet** - Chat promeneur/propriétaire (base prête)
+- [x] ~~**Système de messagerie complet**~~ - ✅ Chat temps réel fonctionnel
+- [x] ~~**Preuves photo obligatoires**~~ - ✅ WalkProofUpload intégré
+- [x] ~~**Gestion des litiges**~~ - ✅ Disputes + IncidentReports
 
 ### Optimisations Techniques
 
@@ -112,7 +125,7 @@
 
 - [ ] **Page Blog** - Articles SEO (actuellement placeholder)
 - [x] ~~**Flux de réservation complet**~~ - ✅ Étapes 1-2-3-4 avec BookingSteps
-- [ ] **Dashboard Promeneur** - Statistiques détaillées
+- [x] ~~**Dashboard Promeneur**~~ - ✅ 7 onglets fonctionnels
 - [ ] **Système de matching** - Algorithme promeneur/propriétaire
 
 ---
