@@ -14,7 +14,7 @@
 | **Stack technique** | React 18 + TypeScript + Vite + Tailwind CSS + Supabase + Framer Motion |
 | **Date création** | Décembre 2024 |
 | **Date mise à jour** | Janvier 2025 |
-| **Progression globale** | ~75% |
+| **Progression globale** | ~85% |
 
 ---
 
@@ -151,7 +151,7 @@
 
 ---
 
-### 🔜 PHASE 4 : FONCTIONNALITÉS AVANCÉES (30%)
+### 🔜 PHASE 4 : FONCTIONNALITÉS AVANCÉES (50%)
 
 #### 4.1 Suivi GPS Temps Réel
 | Fonctionnalité | Complexité | Status |
@@ -181,9 +181,11 @@
 #### 4.4 Urgences & Sécurité
 | Fonctionnalité | Status |
 |---------------|--------|
-| Bouton SOS promeneur | ⚪ |
+| Bouton SOS promeneur | ✅ Fait |
 | Alertes vétérinaire | ⚪ |
 | Contact urgence automatique | ⚪ |
+| **Signalement incidents** | ✅ Fait |
+| **Preuves photo obligatoires** | ✅ Fait |
 
 ---
 
@@ -213,19 +215,21 @@
 
 ---
 
-### ⚪ PHASE 6 : ADMINISTRATION (0% - SÉPARÉ POUR SÉCURITÉ)
+### ⚪ PHASE 6 : ADMINISTRATION (80% - EN GRANDE PARTIE COMPLÉTÉ)
 
 #### 6.1 Interface Admin Sécurisée
 | Fonctionnalité | Sécurité | Status |
 |---------------|----------|--------|
-| Route `/admin` protégée | RLS + role admin | ⚪ |
+| Route `/admin` protégée | RLS + role admin | ✅ Fait |
+| Vérification rôle admin | Supabase RLS | ✅ Fait |
 | Authentification 2FA | Obligatoire | ⚪ |
 | Logs d'actions | Audit trail | ⚪ |
 
 #### 6.2 Gestion Utilisateurs
 | Fonctionnalité | Status |
 |---------------|--------|
-| Liste users paginée | ⚪ |
+| Liste users paginée | ✅ Fait |
+| Statistiques utilisateurs | ✅ Fait |
 | Suspension compte | ⚪ |
 | Modification profil | ⚪ |
 | Historique activité | ⚪ |
@@ -241,18 +245,23 @@
 #### 6.4 Analytics Business
 | KPI | Status |
 |-----|--------|
-| Utilisateurs actifs | ⚪ |
-| Volume réservations | ⚪ |
-| Chiffre d'affaires | ⚪ |
+| Utilisateurs actifs | ✅ Fait |
+| Volume réservations | ✅ Fait |
+| Chiffre d'affaires | ✅ Fait |
+| Commission calculée | ✅ Fait |
 | Taux conversion | ⚪ |
 | NPS score | ⚪ |
 
-#### 6.5 Gestion Litiges
+#### 6.5 Gestion Litiges et Incidents ✅ NOUVEAU
 | Fonctionnalité | Status |
 |---------------|--------|
-| Tickets support | ⚪ |
+| Table `disputes` | ✅ Fait |
+| Table `incident_reports` | ✅ Fait |
+| Interface admin litiges | ✅ Fait |
+| Résolution litiges | ✅ Fait |
+| Signalement retards/absences | ✅ Fait |
 | Médiation automatisée | ⚪ |
-| Remboursements | ⚪ |
+| Remboursements | ⚪ (Stripe requis) |
 | Bannissement | ⚪ |
 
 ---
