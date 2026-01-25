@@ -4,13 +4,16 @@ import { Footer } from "@/components/ui/footer";
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, Dog, MapPin, Euro } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Calendar, Clock, Dog, MapPin, Euro, AlertTriangle, Scale } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { FloatingContact } from "@/components/ui/floating-contact";
 import { motion } from "framer-motion";
 import { WalkProofUpload } from "@/components/booking/WalkProofUpload";
+import { ReportIncidentDialog } from "@/components/booking/ReportIncidentDialog";
+import { OpenDisputeDialog } from "@/components/booking/OpenDisputeDialog";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,6 +35,8 @@ const BookingDetails = () => {
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [walkProofs, setWalkProofs] = useState<any[]>([]);
+  const [showIncidentDialog, setShowIncidentDialog] = useState(false);
+  const [showDisputeDialog, setShowDisputeDialog] = useState(false);
 
   useEffect(() => {
     fetchBooking();
@@ -303,11 +308,64 @@ const BookingDetails = () => {
               />
             </motion.div>
           )}
+
+          {/* Actions Section */}
+          {booking.status !== 'cancelled' && (
+            <motion.div variants={itemVariants} className="mt-6">
+              <Card className="shadow-card">
+                <CardHeader>
+                  <CardTitle>Actions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-3">
+                    {(booking.status === 'confirmed' || booking.status === 'in_progress') && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setShowIncidentDialog(true)}
+                        className="gap-2"
+                      >
+                        <AlertTriangle className="h-4 w-4" />
+                        Signaler un incident
+                      </Button>
+                    )}
+                    {booking.status === 'completed' && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setShowDisputeDialog(true)}
+                        className="gap-2"
+                      >
+                        <Scale className="h-4 w-4" />
+                        Ouvrir un litige
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
         </motion.div>
       </main>
       
       <Footer />
       <FloatingContact />
+
+      {/* Dialogs */}
+      <ReportIncidentDialog
+        open={showIncidentDialog}
+        onOpenChange={setShowIncidentDialog}
+        bookingId={booking.id}
+        dogName={booking.dogs?.name}
+      />
+
+      {booking.walker_id && currentUserId && (
+        <OpenDisputeDialog
+          open={showDisputeDialog}
+          onOpenChange={setShowDisputeDialog}
+          bookingId={booking.id}
+          reportedId={currentUserId === booking.owner_id ? booking.walker_id : booking.owner_id}
+          dogName={booking.dogs?.name}
+        />
+      )}
     </div>
   );
 };

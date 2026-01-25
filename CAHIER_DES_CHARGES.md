@@ -59,6 +59,7 @@
 |-----------|---------|--------|
 | **Propriétaire** | Aperçu, Chiens, Réservations, Promeneurs, Messages, Parrainage, Profil | ✅ 7/7 |
 | **Promeneur** | Aperçu, Missions, Gains, Disponibilités, Messages, Performance, Profil | ✅ 7/7 |
+| **Admin** | Réservations, Litiges, Utilisateurs, Statistiques | ✅ 4/4 |
 
 #### 1.3 Gestion Fichiers (Supabase Storage)
 | Bucket | Public | Fonctionnalité | Status |
@@ -66,7 +67,7 @@
 | `avatars` | ✅ | Photos profil humains | ✅ Upload fonctionnel |
 | `dog-photos` | ✅ | Photos des chiens | ✅ Upload fonctionnel |
 | `walker-documents` | ❌ | CNI, casier, assurance | ✅ Upload fonctionnel |
-| `walk-proofs` | ❌ | Preuves promenades | ⚪ À implémenter |
+| `walk-proofs` | ❌ | Preuves promenades | ✅ Table créée + composant |
 
 #### 1.4 Composants Partagés Premium
 | Composant | Fichier | Fonctionnalités |
