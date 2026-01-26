@@ -356,7 +356,7 @@ const WalkerProfilePage = () => {
                           variant="outline"
                           size="icon"
                           onClick={toggleFavorite}
-                          className={isFavorite ? 'text-rose-500 border-rose-500' : ''}
+                          className={isFavorite ? 'text-primary border-primary' : ''}
                         >
                           <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
                         </Button>

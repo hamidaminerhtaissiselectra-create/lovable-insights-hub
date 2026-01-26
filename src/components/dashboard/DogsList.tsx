@@ -77,7 +77,7 @@ export const DogsList = ({ dogs, onAddDog, onDogClick }: DogsListProps) => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h4 className="font-semibold">{dog.name}</h4>
-                    <Heart className="h-4 w-4 text-rose-400" />
+                    <Heart className="h-4 w-4 text-primary fill-primary/20" />
                   </div>
                   <p className="text-sm text-muted-foreground">{dog.breed}</p>
                   <div className="flex flex-wrap gap-2 mt-1">

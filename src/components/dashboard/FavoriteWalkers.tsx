@@ -37,7 +37,7 @@ export const FavoriteWalkers = ({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Heart className="h-5 w-5 text-rose-500" />
+          <Heart className="h-5 w-5 text-primary fill-primary/20" />
           Promeneurs favoris
         </CardTitle>
         <CardDescription>{walkers.length} promeneur(s) favori(s)</CardDescription>

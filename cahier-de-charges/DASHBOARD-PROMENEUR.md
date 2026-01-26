@@ -1,95 +1,152 @@
-# Dashboard Promeneur - Spécifications
+# Dashboard Promeneur - Spécifications Complètes
 
 ## Principes UX/UI
 
 - **Accessibilité seniors** : textes lisibles (min 16px), contrastes élevés, boutons larges, navigation simple
-- **Couleurs** : Respecter le thème DogWalking (vert sauge primary, bleu océan accent)
+- **Couleurs** : Tokens sémantiques uniquement (primary = vert sauge, accent = bleu océan)
 - **Animations** : Fluides avec framer-motion, non distrayantes
 - **Responsive** : Mobile-first avec tabs en bas sur mobile
+- **Fond** : Clair uniquement (blanc/crème), jamais noir
 
 ---
 
-## Onglets du Dashboard
+## Identification de l'Espace
+
+- Badge visible "Espace Promeneur" avec icône utilisateur
+- Présent sur le dashboard, dans le menu, sur les pages clés
+- Aucun switch de rôle possible dans l'interface
+
+---
+
+## Onglets du Dashboard (7 onglets)
 
 ### 1. Tableau de Bord (Aperçu)
-- Statistiques animées : gains du mois, promenades, note, taux acceptation
-- Alerte actions requises (demandes en attente)
-- Nouvelles demandes avec actions Accepter/Refuser
-- Timeline activité récente
-- Prochaines missions confirmées
-- Badge / progression vers badges
+**Status : ✅ Fonctionnel**
 
-### 2. Réservations (Missions)
-- Onglets : En attente, Confirmées, En cours, Terminées
-- Actions par statut :
-  - En attente : Accepter / Refuser
-  - Confirmées/En cours : Message, Incident, Annuler, SOS
-- Bouton "Prise en charge" avec photo obligatoire
-- Envoi preuves pendant/fin mission
+| Élément | Description |
+|---------|-------------|
+| Statistiques animées | Gains du mois, promenades, note, taux acceptation |
+| Alerte actions | Demandes en attente (accepter/refuser) |
+| Nouvelles demandes | Boutons Accepter / Refuser |
+| Timeline | Activité récente |
+| Prochaines missions | Confirmées avec détails |
+| Badges | Progression vers distinctions |
 
-### 3. Gains
-- Solde disponible (prêt à retirer)
-- En attente (libéré après 48h)
-- Total gagné depuis le début
-- Évolution mensuelle avec graphique
-- Historique des transactions
-- Commission 13% affichée
-- Bouton demande de retrait
+### 2. Missions (Réservations)
+**Status : ✅ Fonctionnel**
 
-### 4. Disponibilités
-- Calendrier hebdomadaire
-- Jours disponibles (toggle)
-- Plages horaires (début/fin)
-- Sauvegarde automatique
+| Sous-onglet | Fonctionnalité |
+|-------------|----------------|
+| En attente | Demandes à accepter/refuser |
+| Confirmées | Missions acceptées |
+| En cours | Mission active |
+| Terminées | Historique complet |
+
+**Actions par statut :**
+- En attente : Accepter / Refuser
+- Confirmées : Message, Incident, Annuler
+- En cours : **Prise en charge (photo obligatoire)**, Fin mission
+
+### 3. Revenus (Gains)
+**Status : ✅ Fonctionnel**
+
+| Section | Description |
+|---------|-------------|
+| Solde disponible | Prêt à retirer |
+| En attente | Libéré après 48h |
+| Total gagné | Depuis le début |
+| Graphique | Évolution mensuelle |
+| Historique | Transactions détaillées |
+| Commission | 13% affichée clairement |
+| Retrait | Bouton demande (2-3 jours ouvrés) |
+
+### 4. Disponibilités (Calendrier)
+**Status : ✅ Fonctionnel**
+
+| Fonctionnalité | Description |
+|----------------|-------------|
+| Calendrier | Vue hebdomadaire |
+| Jours | Toggle disponible/indisponible |
+| Plages horaires | Début/fin configurable |
+| Sauvegarde | Automatique |
 
 ### 5. Messages
-- Conversations avec propriétaires
-- Temps réel via Supabase
-- Anonymat préservé
-- Bouton urgence
+**Status : ✅ Fonctionnel**
+
+| Fonctionnalité | Description |
+|----------------|-------------|
+| Conversations | Avec propriétaires |
+| Temps réel | Via Supabase Realtime |
+| Anonymat | Numéros masqués |
+| Bouton urgence | Signalement rapide |
 
 ### 6. Performance
-- Note moyenne détaillée
-- Taux de complétion
-- Temps de réponse moyen
-- Badges gagnés et à débloquer
-- Avis clients récents
+**Status : ✅ Fonctionnel**
+
+| Métrique | Description |
+|----------|-------------|
+| Note moyenne | Détaillée par critère |
+| Taux complétion | Missions terminées |
+| Temps de réponse | Moyenne |
+| Badges | Gagnés et à débloquer |
+| Avis clients | Récents avec commentaires |
 
 ### 7. Profil
-- Photo de profil (upload)
-- Informations personnelles
-- Bio / présentation publique
-- **Sous-onglets :**
-  - Profil public
-  - Tarifs (configuration services)
-  - Documents obligatoires
-  - Paramètres
+**Status : ✅ Fonctionnel**
+
+| Sous-section | Contenu |
+|--------------|---------|
+| **Profil public** | Photo, bio, expérience |
+| **Tarifs** | Configuration services, prix |
+| **Documents** | CNI, casier B2, assurance RC |
+| **Paramètres** | Notifications, confidentialité |
 
 ---
 
 ## Documents Obligatoires
 
-- **Carte d'identité** : obligatoire
-- **Casier judiciaire B2** : obligatoire
-- **Assurance RC** : obligatoire
-- Upload via Supabase Storage (bucket: walker-documents)
-- Validation manuelle par admin avant activation
+| Document | Obligatoire | Bucket |
+|----------|-------------|--------|
+| Carte d'identité | ✅ | walker-documents |
+| Casier judiciaire B2 | ✅ | walker-documents |
+| Assurance RC Pro | ✅ | walker-documents |
+
+**Processus :**
+1. Upload via composant DocumentUpload
+2. Stockage Supabase Storage (bucket privé)
+3. Validation manuelle par admin
+4. Activation du profil public
 
 ---
 
 ## Système de Preuves Photo
 
-### Prise en charge
+### Prise en Charge
 1. Bouton "Prise en charge" dans les missions confirmées
 2. Photo obligatoire de l'animal au départ
 3. Notification envoyée au propriétaire
 4. Statut booking → "in_progress"
 
-### Fin de mission
-1. Photo obligatoire pour valider la mission
+### Fin de Mission
+1. Photo obligatoire pour valider
 2. Envoi au propriétaire
-3. Déblocage du paiement (si pas de preuve → paiement bloqué)
+3. **Si pas de preuve → paiement bloqué**
 4. Statut booking → "completed"
+
+---
+
+## Finances
+
+| Élément | Valeur |
+|---------|--------|
+| Commission plateforme | 13% |
+| Libération paiement | 48h après mission |
+| Délai retrait | 2-3 jours ouvrés |
+
+**Calcul :**
+```
+Gain net = Prix mission × 0.87
+```
 
 ---
 
@@ -101,37 +158,60 @@
 
 ---
 
-## Finances
+## Composants Utilisés
 
-- Gains nets après commission 13%
-- Historique détaillé par mission
-- Paiement libéré 48h après mission
-- Retrait sous 2-3 jours ouvrés
+| Composant | Fichier |
+|-----------|---------|
+| AnimatedStatsCard | Statistiques avec animations |
+| ActivityTimeline | Historique activité |
+| EarningsChart | Graphique gains (recharts) |
+| SOSButton | Bouton urgence |
+| DocumentUpload | Upload documents |
+| PricingSettings | Configuration tarifs |
+| MissionTakeover | Prise en charge avec photo |
 
 ---
 
 ## Style et Design
 
 ```css
-/* Couleurs principales */
+/* Couleurs principales (tokens) */
 --primary: hsl(142, 76%, 36%);      /* Vert sauge */
 --accent: hsl(200, 98%, 39%);        /* Bleu océan */
 
 /* Couleurs gains */
---success: hsl(142, 76%, 40%);       /* Vert pour gains */
---warning: hsl(45, 93%, 47%);        /* Ambre pour en attente */
+--success: Utiliser primary
+--warning: Utiliser accent
 
-/* Gradients */
---gradient-success: linear-gradient(to-r, green-500, emerald-600);
+/* INTERDIT */
+❌ text-red-500, bg-rose-50, text-amber-600 (hardcoded)
+✅ text-primary, bg-primary/10, text-accent
 ```
 
 ---
 
-## Composants Utilisés
+## Navigation Mobile
 
-- AnimatedStatsCard pour statistiques
-- ActivityTimeline pour historique
-- EarningsChart pour graphique gains
-- SOSButton pour urgences
-- DocumentUpload pour documents
-- PricingSettings pour tarifs
+- Tab bar fixe en bas de l'écran
+- 4 onglets visibles : Accueil, Missions, Revenus, Profil
+- Autres onglets accessibles via menu ou recherche
+- Icônes claires et labels courts
+
+---
+
+## Fichier Principal
+
+`src/pages/dashboard/WalkerDashboard.tsx`
+
+### Composants Onglets
+- `src/components/dashboard/walker/OverviewTab.tsx`
+- `src/components/dashboard/walker/BookingsTab.tsx`
+- `src/components/dashboard/walker/EarningsTab.tsx`
+- `src/components/dashboard/walker/AvailabilityTab.tsx`
+- `src/components/dashboard/walker/MessagesTab.tsx`
+- `src/components/dashboard/walker/PerformanceTab.tsx`
+- `src/components/dashboard/walker/ProfileTab.tsx`
+
+---
+
+*Mise à jour : Janvier 2026*
