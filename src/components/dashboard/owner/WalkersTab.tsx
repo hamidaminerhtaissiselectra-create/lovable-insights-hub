@@ -133,7 +133,7 @@ const WalkersTab = () => {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold flex items-center gap-2">
-          <Heart className="h-6 w-6 text-red-500" />
+          <Heart className="h-6 w-6 text-primary fill-primary/20" />
           Mes Promeneurs Favoris
         </h2>
         <Button onClick={() => navigate('/walkers')} className="gap-2">

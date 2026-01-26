@@ -12,74 +12,173 @@
 
 **DogWalking** est la plateforme n°1 en France pour trouver des promeneurs de chiens professionnels vérifiés. Notre mission : garantir la sécurité et le bien-être de votre compagnon grâce à :
 
-- ✅ **Promeneurs 100% vérifiés** (CNI, casier judiciaire, assurance RC)
+- ✅ **Promeneurs 100% vérifiés** (CNI, casier judiciaire B2, assurance RC)
 - ✅ **Paiement escrow sécurisé** (argent bloqué jusqu'à validation)
 - ✅ **Preuves photo/vidéo obligatoires** à chaque mission
 - ✅ **Assurance incluse** jusqu'à 2M€
 
 ---
 
-## 🎯 Objectif : Surpasser Rover.com
+## 🎨 Identité Visuelle
 
-### Analyse Concurrentielle Rover.com
+| Élément | Valeur |
+|---------|--------|
+| **Couleur Primaire** | Vert sauge `hsl(142, 76%, 36%)` |
+| **Couleur Accent** | Bleu océan `hsl(200, 98%, 39%)` |
+| **Fond** | Clair (blanc/crème) |
+| **Style** | Moderne, accessible, rassurant |
+| **Cible** | Tous publics (y compris seniors) |
 
-| Fonctionnalité Rover | Status DogWalking | Amélioration |
-|---------------------|-------------------|--------------|
-| Recherche par localisation | ✅ Fait | + Filtres avancés |
-| Profils promeneurs | ✅ Fait | + Badges, vérification FR |
-| Réservation en ligne | ✅ Fait | + 3 étapes simplifiées |
-| Messagerie | ✅ Fait | + Temps réel Supabase |
-| Paiement sécurisé | 🔜 En cours | + Escrow 48h |
-| Avis certifiés | ✅ Fait | + Post-service uniquement |
-| Application mobile | ⚪ À faire | PWA + App native |
-| Suivi GPS | ⚪ À faire | + Temps réel |
-| Couverture France | ✅ Fait | + SEO local 100 villes |
-| Support client | 🔜 En cours | + Chat 7j/7 |
-
-### Avantages Compétitifs DogWalking
-
-1. **🇫🇷 Focus France** - Vérification adaptée (casier B3, CNI française)
-2. **🔒 Sécurité renforcée** - Documents vérifiés manuellement sous 48h
-3. **💰 Tarification transparente** - Commission 13% vs 20% Rover
-4. **📸 Preuves obligatoires** - Photos/vidéos à chaque promenade
-5. **🎁 Programme parrainage** - 15€ parrain, 10€ filleul
-6. **🌍 SEO local** - Pages dédiées par ville/département
+> ⚠️ **Règle absolue** : Pas de fond sombre/noir. Utiliser uniquement les tokens sémantiques du design system.
 
 ---
 
 ## 🚀 Fonctionnalités Principales
 
-### 👤 Parcours Propriétaire
-| Fonctionnalité | Description | Status |
-|---------------|-------------|--------|
-| **Recherche intelligente** | Filtres par ville, service, tarif, notes | ✅ |
-| **Dashboard unifié** | 7 onglets (Aperçu, Chiens, Réservations, Promeneurs, Messages, Parrainage, Profil) | ✅ |
-| **Upload photo profil** | Stockage Supabase bucket 'avatars' | ✅ |
-| **Upload photo chien** | Stockage Supabase bucket 'dog-photos' | ✅ |
-| **Barre de recherche dashboard** | Actions rapides avec ⌘K | ✅ |
-| **Paramètres avancés** | Thème, notifications, confidentialité | ✅ |
-| **Réservation 3 étapes** | Service → Détails → Confirmation | ✅ |
-| **Messagerie temps réel** | Communication directe promeneurs | ✅ |
-| **Système parrainage** | Code unique, tracking, récompenses | ✅ |
+### 👤 Parcours Propriétaire (Espace Propriétaire)
+| Onglet | Description | Status |
+|--------|-------------|--------|
+| **Accueil** | Résumé, stats, prochaines réservations | ✅ |
+| **Réservations** | À venir, passées, annulation | ✅ |
+| **Mes Chiens** | Profils, photos, santé | ✅ |
+| **Messages** | Messagerie temps réel | ✅ |
+| **Factures** | Historique paiements, téléchargements | ✅ |
+| **Parrainage** | Code unique, tracking | ✅ |
+| **Profil** | Informations, CNI, paramètres | ✅ |
 
-### 🚶 Parcours Promeneur
-| Fonctionnalité | Description | Status |
-|---------------|-------------|--------|
-| **Dashboard unifié** | 7 onglets (Aperçu, Missions, Gains, Dispo, Messages, Performance, Profil) | ✅ |
-| **Upload documents** | CNI, casier B3, assurance RC Pro via Supabase Storage | ✅ |
-| **Gestion tarifs** | Tarif horaire, zone, chiens max, tarification dynamique | ✅ |
-| **Upload photo profil** | Stockage Supabase bucket 'avatars' | ✅ |
-| **Badges et distinctions** | Vérifié, Top Promeneur, etc. | ✅ |
-| **Statistiques performance** | Taux acceptation, note moyenne, revenus | ✅ |
-| **Profil public SEO** | Page personnalisée avec avis | ✅ |
+### 🚶 Parcours Promeneur (Espace Promeneur)
+| Onglet | Description | Status |
+|--------|-------------|--------|
+| **Accueil** | Demandes, revenus, missions | ✅ |
+| **Missions** | Accepter/refuser, prise en charge photo | ✅ |
+| **Calendrier** | Disponibilités hebdomadaires | ✅ |
+| **Messages** | Conversations propriétaires | ✅ |
+| **Revenus** | Gains, historique, commission 13% | ✅ |
+| **Performance** | Note, avis, badges | ✅ |
+| **Profil** | Documents, tarifs, bio publique | ✅ |
 
 ### 🔒 Sécurité & Confiance
 - ✅ Vérification manuelle des documents sous 48h
-- ✅ Upload documents vers bucket privé 'walker-documents'
-- ✅ Preuves photo/vidéo via bucket privé 'walk-proofs'
-- 🔜 Paiement escrow (24-48h avant libération)
+- ✅ Upload documents vers bucket privé
+- ✅ Preuves photo/vidéo obligatoires (remplace GPS)
+- ✅ Signalement incidents et litiges
 - ✅ Avis certifiés (uniquement après service)
-- 🔜 Support 7j/7
+- 🔜 Paiement escrow (Stripe Connect)
+
+---
+
+## 📁 Architecture du Projet
+
+```
+src/
+├── assets/                    # Images et ressources statiques
+│   ├── pages/                 # Images hero des pages
+│   ├── homepage/              # Images sections homepage
+│   ├── services/              # Images services détaillés
+│   └── trust/                 # Images confiance et sécurité
+│
+├── components/
+│   ├── booking/               # Réservation, preuves photo
+│   ├── dashboard/
+│   │   ├── owner/             # Onglets dashboard propriétaire
+│   │   ├── walker/            # Onglets dashboard promeneur
+│   │   └── shared/            # Composants partagés
+│   ├── seo/                   # SEOHead, structured data
+│   └── ui/                    # 50+ composants Shadcn personnalisés
+│
+├── pages/
+│   ├── dashboard/
+│   │   ├── OwnerDashboard.tsx    # Espace Propriétaire
+│   │   └── WalkerDashboard.tsx   # Espace Promeneur
+│   └── services/              # 6 Pages piliers SEO
+│
+├── hooks/                     # Hooks personnalisés (realtime, PWA, etc.)
+├── integrations/supabase/     # Client et types Supabase
+└── cahier-de-charges/         # Spécifications détaillées
+```
+
+---
+
+## 🌐 Routes de l'Application
+
+### Dashboards (Séparation stricte)
+| Route | Description |
+|-------|-------------|
+| `/dashboard-proprietaire` | Espace Propriétaire (7 onglets) |
+| `/dashboard-promeneur` | Espace Promeneur (7 onglets) |
+
+### Pages Publiques
+| Route | Description |
+|-------|-------------|
+| `/` | Accueil |
+| `/services/promenade` | Promenade de chien |
+| `/services/garde` | Garde à domicile |
+| `/services/visite` | Visite à domicile |
+| `/services/dog-sitting` | Dog sitting |
+| `/services/pet-sitting` | Pet sitting |
+| `/services/marche-reguliere` | Marche régulière |
+| `/walkers` | Recherche promeneurs |
+| `/zone/:slug` | Pages locales SEO |
+| `/blog` | Articles et conseils |
+
+---
+
+## 💾 Supabase Storage Buckets
+
+| Bucket | Public | Usage |
+|--------|--------|-------|
+| `avatars` | ✅ Oui | Photos profil utilisateurs |
+| `dog-photos` | ✅ Oui | Photos des chiens |
+| `walker-documents` | ❌ Non | CNI, casier B2, assurance RC |
+| `walk-proofs` | ❌ Non | Preuves photo/vidéo missions |
+
+---
+
+## 📊 Base de Données (Tables Principales)
+
+| Table | Description |
+|-------|-------------|
+| `profiles` | Informations utilisateurs |
+| `dogs` | Profils des chiens |
+| `bookings` | Réservations |
+| `walker_profiles` | Profils promeneurs (tarifs, services) |
+| `walker_documents` | Documents vérification |
+| `walker_earnings` | Revenus promeneurs |
+| `walk_proofs` | Preuves photo missions |
+| `reviews` | Avis clients |
+| `favorites` | Promeneurs favoris |
+| `messages` | Messagerie |
+| `notifications` | Notifications |
+| `referrals` | Parrainage |
+| `disputes` | Litiges |
+| `incident_reports` | Signalements |
+
+---
+
+## 📅 Roadmap
+
+### ✅ Phase 1 : Fondations (COMPLET - 100%)
+- [x] Authentification Supabase
+- [x] Dashboards séparés propriétaire/promeneur
+- [x] Upload photos et documents
+- [x] Système de preuves photo obligatoires
+- [x] SEO optimisé (6 pages piliers)
+- [x] Design responsive accessible
+
+### 🔜 Phase 2 : Paiement (EN ATTENTE)
+- [ ] Intégration Stripe Connect
+- [ ] Paiement escrow 48h
+- [ ] Facturation automatique
+
+### 🔜 Phase 3 : Communication
+- [ ] Emails transactionnels (Resend)
+- [ ] Notifications push PWA
+- [ ] SMS urgences (Twilio)
+
+### ⚪ Phase 4 : Fonctionnalités Avancées
+- [ ] Calendrier synchronisé (Google, iCal)
+- [ ] Réservations récurrentes
+- [ ] Application mobile native
 
 ---
 
@@ -93,160 +192,20 @@
 | **Tailwind CSS** | Styling utility-first | 3.4 |
 | **Shadcn/UI** | Composants accessibles | Latest |
 | **Framer Motion** | Animations fluides | 12.x |
-| **Supabase** | Backend complet (Auth, DB, Storage, Edge Functions) | 2.x |
+| **Supabase** | Backend complet | 2.x |
 | **React Router** | Navigation SPA | 6.x |
 | **React Query** | Data fetching & cache | 5.x |
-| **React Helmet** | SEO dynamique | 2.x |
 
 ---
 
-## 📁 Architecture du Projet
+## 📄 Documentation
 
-```
-src/
-├── assets/                    # Images et ressources statiques
-│   ├── pages/                 # Images hero des pages
-│   ├── homepage/              # Images sections homepage
-│   ├── services/              # Images services détaillés
-│   ├── testimonials/          # Photos témoignages
-│   └── trust/                 # Images confiance et sécurité
-│
-├── components/
-│   ├── dashboard/
-│   │   ├── owner/             # Composants dashboard propriétaire
-│   │   │   ├── OverviewTab.tsx
-│   │   │   ├── DogsTab.tsx
-│   │   │   ├── BookingsTab.tsx
-│   │   │   ├── WalkersTab.tsx
-│   │   │   ├── MessagesTab.tsx
-│   │   │   ├── ReferralTab.tsx
-│   │   │   └── ProfileTab.tsx
-│   │   ├── walker/            # Composants dashboard promeneur
-│   │   │   ├── OverviewTab.tsx
-│   │   │   ├── BookingsTab.tsx
-│   │   │   ├── EarningsTab.tsx
-│   │   │   ├── AvailabilityTab.tsx
-│   │   │   ├── MessagesTab.tsx
-│   │   │   ├── PerformanceTab.tsx
-│   │   │   └── ProfileTab.tsx
-│   │   └── shared/            # Composants partagés
-│   │       ├── DashboardSearch.tsx    # Recherche ⌘K
-│   │       ├── AvatarUpload.tsx       # Upload photo profil
-│   │       ├── DogPhotoUpload.tsx     # Upload photo chien
-│   │       ├── DocumentUpload.tsx     # Upload documents vérification
-│   │       ├── PricingSettings.tsx    # Gestion tarifs
-│   │       └── AdvancedSettings.tsx   # Paramètres avancés
-│   ├── seo/
-│   │   └── SEOHead.tsx        # Composant SEO avec Schema.org
-│   └── ui/                    # 50+ composants Shadcn personnalisés
-│
-├── pages/
-│   ├── dashboard/
-│   │   ├── OwnerDashboard.tsx    # Dashboard propriétaire unifié
-│   │   └── WalkerDashboard.tsx   # Dashboard promeneur unifié
-│   ├── services/              # 6 Pages piliers SEO
-│   └── ...
-│
-├── hooks/                     # Hooks personnalisés
-├── integrations/supabase/     # Client et types Supabase
-├── data/                      # Données statiques
-└── lib/                       # Utilitaires
-```
-
----
-
-## 🌐 Routes de l'Application
-
-### Dashboards Unifiés (Nouveaux)
-| Route | Description |
-|-------|-------------|
-| `/dashboard?tab=apercu` | Vue d'ensemble propriétaire |
-| `/dashboard?tab=chiens` | Gestion des chiens |
-| `/dashboard?tab=reservations` | Historique réservations |
-| `/dashboard?tab=promeneurs` | Favoris et recherche |
-| `/dashboard?tab=messages` | Messagerie |
-| `/dashboard?tab=parrainage` | Programme parrainage |
-| `/dashboard?tab=profil` | Profil et paramètres |
-| `/walker/dashboard?tab=apercu` | Vue d'ensemble promeneur |
-| `/walker/dashboard?tab=missions` | Gestion missions |
-| `/walker/dashboard?tab=gains` | Revenus et retraits |
-| `/walker/dashboard?tab=disponibilites` | Planning |
-| `/walker/dashboard?tab=messages` | Messagerie |
-| `/walker/dashboard?tab=performance` | Statistiques |
-| `/walker/dashboard?tab=profil` | Profil, tarifs, documents |
-
----
-
-## 💾 Supabase Storage Buckets
-
-| Bucket | Public | Usage |
-|--------|--------|-------|
-| `avatars` | ✅ Oui | Photos profil utilisateurs |
-| `dog-photos` | ✅ Oui | Photos des chiens |
-| `walker-documents` | ❌ Non | Documents vérification (CNI, casier, assurance) |
-| `walk-proofs` | ❌ Non | Preuves photo/vidéo des promenades |
-
----
-
-## 📅 Roadmap - Surpasser Rover.com
-
-### ✅ Phase 1 : Fondations (COMPLET)
-- [x] Authentification email Supabase
-- [x] Dashboards unifiés propriétaire/promeneur (7 onglets chacun)
-- [x] Upload photos profil (humain + chien)
-- [x] Upload documents vérification promeneurs
-- [x] Gestion tarifs promeneurs (dynamique, zone, chiens max)
-- [x] Paramètres avancés (thème, notifications, confidentialité)
-- [x] Barre de recherche intelligente ⌘K
-- [x] SEO complet 6 pages piliers
-- [x] Design responsive premium
-
-### 🔜 Phase 2 : Paiement & Transactions (EN COURS)
-- [ ] **Intégration Stripe Connect** - Paiements marketplace
-- [ ] **Edge function `create-checkout`** - Création session paiement
-- [ ] **Edge function `stripe-webhook`** - Gestion webhooks
-- [ ] **Paiement escrow** - Blocage 48h avant libération
-- [ ] **Facturation automatique** - Génération PDF
-- [ ] **Gestion remboursements** - Politique annulation
-
-### 🔜 Phase 3 : Communication (EN COURS)
-- [ ] **Emails transactionnels Resend** - Confirmations, rappels
-- [ ] **Notifications push** - Service workers PWA
-- [ ] **SMS alertes** - Twilio pour urgences
-- [ ] **Chat temps réel amélioré** - Indicateurs frappe, vu
-
-### ⚪ Phase 4 : Fonctionnalités Avancées
-- [ ] **Suivi GPS temps réel** - Carte live pendant promenade
-- [ ] **Calendrier synchronisé** - Google Calendar, iCal
-- [ ] **Récurrence réservations** - Abonnements hebdo/mensuel
-- [ ] **Multi-chiens** - Gestion pack famille
-- [ ] **Urgences** - Bouton SOS promeneur
-
-### ⚪ Phase 5 : Mobile & Scale
-- [ ] **PWA optimisée** - Install, offline, push
-- [ ] **Application native** - React Native ou Flutter
-- [ ] **API publique** - Partenaires vétérinaires
-- [ ] **Expansion géographique** - Belgique, Suisse
-
-### ⚪ Phase 6 : Administration
-- [ ] **Interface Admin sécurisée** - Gestion utilisateurs
-- [ ] **Modération documents** - Validation CNI/casier
-- [ ] **Tableau de bord analytics** - KPIs business
-- [ ] **Gestion litiges** - Médiation automatisée
-
----
-
-## 🏆 Objectifs vs Rover.com
-
-| Métrique | Rover | DogWalking Cible |
-|----------|-------|------------------|
-| Commission | 20% | **13%** ✅ |
-| Vérification | Basique | **Manuelle 48h** ✅ |
-| Preuves mission | Optionnel | **Obligatoire** ✅ |
-| Assurance | 1M€ | **2M€** |
-| Support | Email | **Chat 7j/7** |
-| SEO local | Faible | **100 villes** ✅ |
-| Parrainage | 10€ | **15€/10€** ✅ |
+- `README.md` - Ce fichier
+- `CAHIER_DES_CHARGES.md` - Spécifications fonctionnelles complètes
+- `SEO_VALIDATION_CHECKLIST.md` - Checklist SEO
+- `cahier-de-charges/DASHBOARD-PROPRIETAIRE.md` - Specs dashboard propriétaire
+- `cahier-de-charges/DASHBOARD-PROMENEUR.md` - Specs dashboard promeneur
+- `cahier-de-charges/BIBLE-OPEN-GO-2026.md` - Vision projet
 
 ---
 
@@ -256,4 +215,6 @@ MIT License - Voir [LICENSE](LICENSE)
 
 ---
 
-*Développé avec ❤️ pour les amoureux des chiens en France - Objectif : Devenir le leader français 🇫🇷*
+*Développé avec ❤️ pour les amoureux des chiens en France - Objectif : Leader français Pet Care 🇫🇷 🐕*
+
+**Progression globale : ~85%** | Mise à jour : Janvier 2026

@@ -1,5 +1,5 @@
-# 📘 CAHIER DES CHARGES COMPLET - DOGWALKING v4.0
-## Plateforme Leader de Pet Care en France - Objectif : Surpasser Rover.com
+# 📘 CAHIER DES CHARGES COMPLET - DOGWALKING v5.0
+## Plateforme Leader de Pet Care en France
 
 ---
 
@@ -10,320 +10,196 @@
 | **Nom du projet** | DogWalking |
 | **Type** | Plateforme marketplace B2C Pet Care |
 | **Cibles** | Propriétaires d'animaux + Prestataires professionnels |
-| **Marché** | France métropolitaine (extension Belgique/Suisse prévue) |
-| **Stack technique** | React 18 + TypeScript + Vite + Tailwind CSS + Supabase + Framer Motion |
-| **Date création** | Décembre 2024 |
-| **Date mise à jour** | Janvier 2025 |
+| **Marché** | France métropolitaine |
+| **Stack technique** | React 18 + TypeScript + Vite + Tailwind CSS + Supabase |
+| **Date mise à jour** | Janvier 2026 |
 | **Progression globale** | ~85% |
 
 ---
 
-## 🎯 VISION STRATÉGIQUE : SURPASSER ROVER.COM
+## 🎨 IDENTITÉ VISUELLE (OBLIGATOIRE)
 
-### Analyse SWOT Rover.com
+### Palette de Couleurs
+| Token | Valeur | Usage |
+|-------|--------|-------|
+| `primary` | Vert sauge `hsl(142, 76%, 36%)` | Boutons, liens, accents |
+| `accent` | Bleu océan `hsl(200, 98%, 39%)` | Badges, highlights |
+| `background` | Blanc/crème | Fond de page |
+| `foreground` | Gris foncé | Texte principal |
 
-| Forces Rover | Faiblesses Rover | Opportunités DogWalking |
-|--------------|------------------|------------------------|
-| Leader mondial | Commission élevée (20%) | Commission 13% |
-| App mobile mature | Vérification basique | Vérification française stricte |
-| Grande base users | Support limité | Support chat 7j/7 |
-| - | Preuves optionnelles | Preuves obligatoires |
-| - | SEO local faible | SEO 100+ villes |
-
-### Différenciateurs Clés DogWalking
-
-1. **🇫🇷 Vérification Française** - Casier judiciaire B3, CNI, assurance RC Pro
-2. **💰 Commission Compétitive** - 13% vs 20% (économie significative)
-3. **📸 Preuves Obligatoires** - Photos/vidéos à chaque prestation
-4. **🔒 Escrow Sécurisé** - Argent bloqué 48h après service
-5. **🎁 Parrainage Généreux** - 15€ parrain + 10€ filleul
-6. **🌍 SEO Local Fort** - Pages dédiées 100+ villes françaises
-7. **⚡ UX Premium** - Animations Framer Motion, design moderne
+### Règles Strictes
+- ❌ **INTERDIT** : Fond noir/sombre, couleurs hardcodées (red-500, rose-500, etc.)
+- ✅ **OBLIGATOIRE** : Tokens sémantiques uniquement (text-primary, bg-primary/10, etc.)
+- ✅ **Accessibilité** : Textes min 16px, contrastes élevés, boutons larges
+- ✅ **Cible seniors** : Navigation simple, icônes lisibles, pas de jargon technique
 
 ---
 
-## 📊 ÉTAT D'AVANCEMENT DÉTAILLÉ
+## 🔐 SÉPARATION DES RÔLES (FONDAMENTAL)
 
-### ✅ PHASE 1 : FONDATIONS (100% COMPLET)
+### Principe Absolu
+Il existe **2 espaces totalement séparés** :
+1. **Espace Propriétaire** (`/dashboard-proprietaire`)
+2. **Espace Promeneur** (`/dashboard-promeneur`)
 
-#### 1.1 Authentification & Profils
-| Fonctionnalité | Status | Détails |
-|---------------|--------|---------|
-| Auth email Supabase | ✅ | Login, register, reset password |
-| Profils utilisateurs | ✅ | Table `profiles` avec RLS |
-| Types utilisateurs | ✅ | Enum: owner, walker, both |
-| Rôles sécurisés | ✅ | Table `user_roles` séparée |
-
-#### 1.2 Dashboards Unifiés
-| Dashboard | Onglets | Status |
-|-----------|---------|--------|
-| **Propriétaire** | Aperçu, Chiens, Réservations, Promeneurs, Messages, Parrainage, Profil | ✅ 7/7 |
-| **Promeneur** | Aperçu, Missions, Gains, Disponibilités, Messages, Performance, Profil | ✅ 7/7 |
-| **Admin** | Réservations, Litiges, Utilisateurs, Statistiques | ✅ 4/4 |
-
-#### 1.3 Gestion Fichiers (Supabase Storage)
-| Bucket | Public | Fonctionnalité | Status |
-|--------|--------|----------------|--------|
-| `avatars` | ✅ | Photos profil humains | ✅ Upload fonctionnel |
-| `dog-photos` | ✅ | Photos des chiens | ✅ Upload fonctionnel |
-| `walker-documents` | ❌ | CNI, casier, assurance | ✅ Upload fonctionnel |
-| `walk-proofs` | ❌ | Preuves promenades | ✅ Table créée + composant |
-
-#### 1.4 Composants Partagés Premium
-| Composant | Fichier | Fonctionnalités |
-|-----------|---------|-----------------|
-| Recherche | `DashboardSearch.tsx` | Raccourci ⌘K, actions rapides, navigation |
-| Avatar Upload | `AvatarUpload.tsx` | Upload, preview, suppression, variants |
-| Dog Photo | `DogPhotoUpload.tsx` | Upload photo chien avec dialog |
-| Documents | `DocumentUpload.tsx` | Upload multi-docs, progress, statuts |
-| Tarifs | `PricingSettings.tsx` | Slider, zone, chiens max, dynamique |
-| Paramètres | `AdvancedSettings.tsx` | Thème, notifs, confidentialité, sécurité |
-
-#### 1.5 SEO Complet
-| Page | Mots | FAQ | Status |
-|------|------|-----|--------|
-| Accueil | ~1400 | 6 | ✅ |
-| Promenade | ~1550 | 6 | ✅ |
-| Garde | ~1450 | 6 | ✅ |
-| Visite | ~1500 | 6 | ✅ |
-| Dog Sitting | ~1600 | 8 | ✅ |
-| Pet Sitting | ~1550 | 8 | ✅ |
-| Marche Régulière | ~1580 | 8 | ✅ |
+### Règles
+- ❌ Aucun switch Promeneur/Propriétaire dans l'interface
+- ❌ Aucun dashboard hybride
+- ✅ Le rôle est choisi à l'inscription
+- ✅ Mention visible "Espace Propriétaire" ou "Espace Promeneur" partout
 
 ---
 
-### 🔜 PHASE 2 : PAIEMENT & MONÉTISATION (0% - PRIORITÉ HAUTE)
+## 📋 SPÉCIFICATIONS DÉTAILLÉES
 
-#### 2.1 Intégration Stripe Connect
-| Tâche | Priorité | Complexité | Status |
-|-------|----------|------------|--------|
-| Créer compte Stripe Connect | 🔴 Haute | Faible | ⚪ |
-| Edge function `create-checkout` | 🔴 Haute | Moyenne | ⚪ |
-| Edge function `stripe-webhook` | 🔴 Haute | Haute | ⚪ |
-| Table `payments` | 🔴 Haute | Faible | ⚪ |
-| Table `payouts` (virements promeneurs) | 🔴 Haute | Faible | ⚪ |
-| Interface paiement frontend | 🔴 Haute | Moyenne | ⚪ |
-
-#### 2.2 Système Escrow
-| Fonctionnalité | Description | Status |
-|---------------|-------------|--------|
-| Capture différée | Argent bloqué à la réservation | ⚪ |
-| Libération auto | Après 48h post-service | ⚪ |
-| Libération manuelle | Validation propriétaire | ⚪ |
-| Politique annulation | 24h, 48h, 7j avec pénalités | ⚪ |
-
-#### 2.3 Facturation
-| Fonctionnalité | Status |
-|---------------|--------|
-| Génération factures PDF | ⚪ |
-| Historique transactions | ⚪ |
-| Export comptable | ⚪ |
+### Documentation des Dashboards
+Les spécifications complètes sont dans :
+- `cahier-de-charges/DASHBOARD-PROPRIETAIRE.md`
+- `cahier-de-charges/DASHBOARD-PROMENEUR.md`
 
 ---
 
-### 🔜 PHASE 3 : COMMUNICATION (10% - PRIORITÉ HAUTE)
+## 🟩 ESPACE PROPRIÉTAIRE - Onglets
 
-#### 3.1 Emails Transactionnels (Resend)
-| Email | Trigger | Status |
-|-------|---------|--------|
-| Bienvenue | Inscription | ⚪ |
-| Confirmation réservation | Nouvelle résa | ⚪ |
-| Rappel J-1 | 24h avant | ⚪ |
-| Promenade terminée | Fin service | ⚪ |
-| Demande d'avis | 2h après service | ⚪ |
-| Documents validés | Vérification OK | ⚪ |
-| Documents refusés | Vérification KO | ⚪ |
-
-#### 3.2 Notifications Push (PWA)
-| Type | Status |
-|------|--------|
-| Service Worker | ⚪ |
-| Subscription push | ⚪ |
-| Nouvelle demande promeneur | ⚪ |
-| Message reçu | ⚪ |
-| Réservation confirmée | ⚪ |
-
-#### 3.3 SMS (Twilio - Optionnel)
-| Type | Status |
-|------|--------|
-| Confirmation téléphone | ⚪ |
-| Alertes urgentes | ⚪ |
+| Onglet | Fonctionnalités | Status |
+|--------|-----------------|--------|
+| **Accueil** | Stats, prochaines réservations, actions rapides | ✅ |
+| **Réservations** | À venir, passées, annulation (jusqu'à 3h avant) | ✅ |
+| **Mes Chiens** | Liste, ajout, modification, photos, santé | ✅ |
+| **Messages** | Messagerie temps réel avec promeneurs | ✅ |
+| **Factures** | Historique paiements, téléchargement PDF | ✅ |
+| **Parrainage** | Code unique, partage, historique, gains | ✅ |
+| **Profil** | Infos personnelles, CNI, paramètres | ✅ |
 
 ---
 
-### 🔜 PHASE 4 : FONCTIONNALITÉS AVANCÉES (50%)
+## 🟨 ESPACE PROMENEUR - Onglets
 
-#### 4.1 Suivi GPS Temps Réel
-| Fonctionnalité | Complexité | Status |
-|---------------|------------|--------|
-| Tracking position promeneur | Haute | ⚪ |
-| Carte live propriétaire | Haute | ⚪ |
-| Historique parcours | Moyenne | ⚪ |
-| Géofencing (zones) | Haute | ⚪ |
-| **Bouton SOS urgence** | Moyenne | ✅ Fait |
-
-#### 4.2 Calendrier & Récurrence
-| Fonctionnalité | Status |
-|---------------|--------|
-| **Export iCal (.ics)** | ✅ Fait |
-| **Google Calendar intégration** | ✅ Fait |
-| Sync Google Calendar bidirectionnel | ⚪ |
-| Réservations récurrentes | ⚪ |
-| Abonnements mensuel/hebdo | ⚪ |
-
-#### 4.3 Multi-Chiens & Famille
-| Fonctionnalité | Status |
-|---------------|--------|
-| Forfaits multi-chiens | ⚪ |
-| Comptes famille partagés | ⚪ |
-| Promenades groupées | ⚪ |
-
-#### 4.4 Urgences & Sécurité
-| Fonctionnalité | Status |
-|---------------|--------|
-| Bouton SOS promeneur | ✅ Fait |
-| Alertes vétérinaire | ⚪ |
-| Contact urgence automatique | ⚪ |
-| **Signalement incidents** | ✅ Fait |
-| **Preuves photo obligatoires** | ✅ Fait |
+| Onglet | Fonctionnalités | Status |
+|--------|-----------------|--------|
+| **Accueil** | Demandes en attente, missions à venir, revenus | ✅ |
+| **Missions** | Accepter/refuser, prise en charge photo obligatoire | ✅ |
+| **Calendrier** | Disponibilités jours/heures | ✅ |
+| **Messages** | Conversations propriétaires | ✅ |
+| **Revenus** | Gains, commission 13%, historique, retrait | ✅ |
+| **Performance** | Note moyenne, avis, badges | ✅ |
+| **Profil** | Bio publique, tarifs, documents obligatoires | ✅ |
 
 ---
 
-### 🔜 PHASE 5 : MOBILE & SCALE (40%)
+## 📸 SYSTÈME DE PREUVES PHOTO (Remplace GPS)
 
-#### 5.1 PWA Optimisée
-| Fonctionnalité | Status |
-|---------------|--------|
-| **Manifest.json complet** | ✅ Fait |
-| **Service worker cache** | ✅ Fait |
-| **Install prompt** | ✅ Fait |
-| **Mode offline basique** | ✅ Fait |
-| Push notifications | ⚪ (config serveur requis) |
+### Flux Mission
+1. Promeneur accepte la demande
+2. **Prise en charge** : Photo/vidéo OBLIGATOIRE de l'animal
+3. Notification envoyée au propriétaire
+4. **Fin de mission** : Photo/vidéo OBLIGATOIRE
+5. Si pas de preuve → paiement bloqué
+6. Rapport automatique généré
 
-#### 5.2 Application Native
-| Option | Technologie | Status |
-|--------|-------------|--------|
-| React Native | Expo | ⚪ Évaluation |
-| Flutter | Dart | ⚪ Évaluation |
-
-#### 5.3 API Partenaires
-| Partenaire | Integration | Status |
-|-----------|-------------|--------|
-| Vétérinaires | API rendez-vous | ⚪ |
-| Assurances | Déclaration sinistre | ⚪ |
-| Pet shops | Bon d'achat | ⚪ |
+### Tables Supabase
+- `walk_proofs` : Stockage des preuves
+- `bookings.status` : pending → confirmed → in_progress → completed
 
 ---
 
-### ⚪ PHASE 6 : ADMINISTRATION (80% - EN GRANDE PARTIE COMPLÉTÉ)
+## 💰 TARIFICATION
 
-#### 6.1 Interface Admin Sécurisée
-| Fonctionnalité | Sécurité | Status |
-|---------------|----------|--------|
-| Route `/admin` protégée | RLS + role admin | ✅ Fait |
-| Vérification rôle admin | Supabase RLS | ✅ Fait |
-| Authentification 2FA | Obligatoire | ⚪ |
-| Logs d'actions | Audit trail | ⚪ |
+| Service | Tarif de base |
+|---------|---------------|
+| Promenade 30 min | 7€ |
+| Promenade 1h | 13€ |
+| Visite simple | 19€ |
+| Visite sanitaire | 35€ |
+| Garde 24h/nuit | 31€ |
+| Pension canine 24h | 26€ |
+| Accompagnement vétérinaire | 35€ |
 
-#### 6.2 Gestion Utilisateurs
-| Fonctionnalité | Status |
-|---------------|--------|
-| Liste users paginée | ✅ Fait |
-| Statistiques utilisateurs | ✅ Fait |
-| Suspension compte | ⚪ |
-| Modification profil | ⚪ |
-| Historique activité | ⚪ |
-
-#### 6.3 Modération Documents
-| Fonctionnalité | Status |
-|---------------|--------|
-| File d'attente vérification | ⚪ |
-| Preview documents | ⚪ |
-| Validation/Rejet avec motif | ⚪ |
-| Notifications auto | ⚪ |
-
-#### 6.4 Analytics Business
-| KPI | Status |
-|-----|--------|
-| Utilisateurs actifs | ✅ Fait |
-| Volume réservations | ✅ Fait |
-| Chiffre d'affaires | ✅ Fait |
-| Commission calculée | ✅ Fait |
-| Taux conversion | ⚪ |
-| NPS score | ⚪ |
-
-#### 6.5 Gestion Litiges et Incidents ✅ NOUVEAU
-| Fonctionnalité | Status |
-|---------------|--------|
-| Table `disputes` | ✅ Fait |
-| Table `incident_reports` | ✅ Fait |
-| Interface admin litiges | ✅ Fait |
-| Résolution litiges | ✅ Fait |
-| Signalement retards/absences | ✅ Fait |
-| Médiation automatisée | ⚪ |
-| Remboursements | ⚪ (Stripe requis) |
-| Bannissement | ⚪ |
+**Commission plateforme** : 13% (vs 20% Rover)
 
 ---
 
-## 📈 MÉTRIQUES OBJECTIFS
+## 🔒 VÉRIFICATION & SÉCURITÉ
 
-### KPIs Business (Année 1)
-| Métrique | Objectif |
-|----------|----------|
-| Inscriptions promeneurs | 1 000 |
-| Inscriptions propriétaires | 10 000 |
-| Réservations/mois | 5 000 |
-| CA mensuel | 50 000€ |
-| Commission nette | 6 500€ |
-| NPS | > 50 |
+### Propriétaires
+- CNI obligatoire
+- Accord de principe à l'inscription
 
-### KPIs Techniques
-| Métrique | Objectif | Actuel |
-|----------|----------|--------|
-| Lighthouse Performance | > 90 | À mesurer |
-| Lighthouse SEO | > 95 | ✅ 95+ |
-| Uptime | 99.9% | ✅ (Supabase) |
-| Temps réponse API | < 200ms | ✅ |
+### Promeneurs
+- CNI obligatoire
+- Casier judiciaire B2 obligatoire
+- Assurance Responsabilité Civile obligatoire
+- Validation manuelle admin avant activation
+
+### Storage Buckets
+| Bucket | Public | Usage |
+|--------|--------|-------|
+| `avatars` | ✅ | Photos profil |
+| `dog-photos` | ✅ | Photos chiens |
+| `walker-documents` | ❌ | Documents vérification |
+| `walk-proofs` | ❌ | Preuves missions |
 
 ---
 
-## 🔐 ARCHITECTURE SÉCURITÉ
+## 🗃️ TABLES SUPABASE
 
-### Séparation des Interfaces
-| Interface | Route | Accès | Status |
-|-----------|-------|-------|--------|
-| Site public | `/` | Tous | ✅ |
-| Dashboard Propriétaire | `/dashboard` | Auth + owner/both | ✅ |
-| Dashboard Promeneur | `/walker/dashboard` | Auth + walker/both | ✅ |
-| **Admin** | `/admin` | Auth + role admin + 2FA | ⚪ À créer |
+| Table | Description | RLS |
+|-------|-------------|-----|
+| `profiles` | Infos utilisateurs | ✅ |
+| `dogs` | Profils chiens | ✅ |
+| `bookings` | Réservations | ✅ |
+| `walker_profiles` | Profils promeneurs | ✅ |
+| `walker_documents` | Documents vérification | ✅ |
+| `walker_earnings` | Revenus (commission 13%) | ✅ |
+| `walk_proofs` | Preuves photo missions | ✅ |
+| `reviews` | Avis (1-5 étoiles + commentaire) | ✅ |
+| `favorites` | Promeneurs favoris | ✅ |
+| `messages` | Messagerie anonyme | ✅ |
+| `notifications` | Notifications push | ✅ |
+| `referrals` | Parrainage (15€ parrain, 10€ filleul) | ✅ |
+| `disputes` | Litiges/médiation | ✅ |
+| `incident_reports` | Signalements (retards, absences) | ✅ |
+| `user_roles` | Rôles sécurisés (admin, moderator, user) | ✅ |
 
-### Politique RLS Supabase
-| Table | SELECT | INSERT | UPDATE | DELETE |
-|-------|--------|--------|--------|--------|
-| profiles | Public | Own | Own | ❌ |
-| dogs | Public | Own | Own | Own |
-| bookings | Participants | Owner | Participants | ❌ |
-| walker_documents | Own + Admin | Own | Own | Admin |
-| walker_earnings | Own | Admin | ❌ | ❌ |
-| user_roles | Own + Admin | Admin | Admin | Admin |
+---
+
+## 📅 ÉTAT D'AVANCEMENT
+
+### ✅ FAIT (85%)
+- Authentification email Supabase
+- Dashboards séparés propriétaire/promeneur
+- 7 onglets fonctionnels chaque dashboard
+- Upload photos (profil, chiens)
+- Upload documents promeneurs
+- Système de preuves photo obligatoires
+- Messagerie temps réel
+- Système parrainage
+- Gestion avis et favoris
+- Signalement incidents et litiges
+- SEO optimisé (6 pages piliers)
+- Design responsive accessible
+- PWA (manifest, service worker, install prompt)
+
+### 🔜 À FAIRE (15%)
+- Intégration Stripe Connect (paiement escrow)
+- Emails transactionnels (Resend)
+- Interface Admin sécurisée (modération documents)
+- Notifications push navigateur
+- Export calendrier Google Calendar bidirectionnel
 
 ---
 
 ## ✅ CHECKLIST AVANT LANCEMENT
 
 ### Technique
-- [ ] Tests E2E Cypress
-- [ ] Tests unitaires composants critiques
+- [ ] Tests E2E
 - [ ] Audit sécurité Supabase
 - [ ] Optimisation images WebP
-- [ ] Lazy loading complet
 - [ ] Error boundaries
 
 ### Légal
 - [ ] CGV/CGU finalisées
 - [ ] Politique de confidentialité RGPD
-- [ ] Mentions légales complètes
 - [ ] Contrat promeneur
 - [ ] Assurance plateforme
 
@@ -331,41 +207,33 @@
 - [ ] Compte Stripe Connect vérifié
 - [ ] Compte Resend configuré
 - [ ] Support email actif
-- [ ] FAQ complète
-- [ ] Guide promeneur
-- [ ] Guide propriétaire
 
 ---
 
-## 📅 PLANNING PRÉVISIONNEL
+## 🎯 DIRECTIVES DÉVELOPPEMENT
 
-| Phase | Durée | Dates |
-|-------|-------|-------|
-| Phase 2 (Paiement) | 3 semaines | Janvier 2025 |
-| Phase 3 (Communication) | 2 semaines | Février 2025 |
-| Phase 4 (Avancées) | 4 semaines | Mars 2025 |
-| Phase 5 (Mobile) | 6 semaines | Avril-Mai 2025 |
-| Phase 6 (Admin) | 3 semaines | Juin 2025 |
-| **Lancement Beta** | - | **Juillet 2025** |
+### Couleurs
+```css
+/* TOUJOURS utiliser les tokens sémantiques */
+✅ text-primary, bg-primary/10, border-primary/20
+❌ text-red-500, bg-rose-50, text-green-600
+```
 
----
+### Animations
+```typescript
+/* Animations légères, non distrayantes */
+✅ transition-all duration-300
+❌ Animations infinies, gradients animés complexes
+```
 
-## ✅ CONCLUSION
-
-DogWalking est en bonne voie pour devenir le leader français du pet care. Les fondations sont solides :
-
-- ✅ **Architecture moderne** et scalable
-- ✅ **UX premium** avec animations fluides
-- ✅ **SEO optimisé** pour dominer Google
-- ✅ **Sécurité renforcée** vs concurrence
-- ✅ **Commission attractive** (13% vs 20%)
-
-**Priorités immédiates :**
-1. 🔴 Intégration Stripe Connect
-2. 🔴 Emails transactionnels Resend
-3. 🔴 Interface Admin sécurisée
+### Accessibilité
+```html
+<!-- Textes lisibles, boutons larges -->
+✅ text-base (16px min), py-3 px-6 (boutons)
+❌ text-xs, boutons trop petits
+```
 
 ---
 
-*Document mis à jour le 16 Janvier 2025 - Version 4.0*
+*Document mis à jour le 26 Janvier 2026 - Version 5.0*
 *Objectif : Leader français Pet Care 🇫🇷 🐕*
