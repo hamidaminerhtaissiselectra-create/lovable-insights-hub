@@ -32,7 +32,7 @@ export const HomeIntroSection = () => {
       description: "Chaque promeneur fournit une pièce d'identité, un casier judiciaire vierge et une assurance RC professionnelle. Notre équipe vérifie manuellement chaque candidature.",
       highlight: "Seuls 35% des candidats acceptés",
       image: verificationBadge,
-      color: "from-emerald-500/20 to-teal-500/20"
+      color: "from-primary/20 to-primary/10"
     },
     {
       icon: Lock,
@@ -40,7 +40,7 @@ export const HomeIntroSection = () => {
       description: "Votre argent reste bloqué jusqu'à réception des preuves photo/vidéo de la prestation. Sans validation, vous êtes automatiquement remboursé.",
       highlight: "Innovation unique en France",
       image: validationPayment,
-      color: "from-blue-500/20 to-indigo-500/20"
+      color: "from-accent/20 to-accent/10"
     },
     {
       icon: Camera,
@@ -48,7 +48,7 @@ export const HomeIntroSection = () => {
       description: "À chaque mission, le promeneur envoie des photos et vidéos de votre chien via notre plateforme sécurisée. Suivez les aventures de votre compagnon.",
       highlight: "Transparence totale",
       image: photoProof,
-      color: "from-amber-500/20 to-orange-500/20"
+      color: "from-primary/15 to-accent/15"
     },
     {
       icon: Award,
@@ -56,7 +56,7 @@ export const HomeIntroSection = () => {
       description: "Chaque promenade est couverte par une assurance jusqu'à 2 millions d'euros. En cas d'incident, notre équipe gère toutes les démarches.",
       highlight: "Protection 100% sans frais",
       image: familleHeureuse,
-      color: "from-purple-500/20 to-pink-500/20"
+      color: "from-accent/20 to-primary/10"
     }
   ];
 

@@ -121,7 +121,7 @@ export const TestimonialsSection = () => {
                   <div className="text-xs text-muted-foreground mb-1.5">{testimonial.city}</div>
                   <div className="flex gap-0.5">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
                     ))}
                   </div>
                 </div>
