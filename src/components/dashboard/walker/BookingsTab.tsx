@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calendar, CheckCircle, Clock, XCircle, MapPin, 
-  Dog, MessageCircle, Eye, AlertTriangle
+  Dog, MessageCircle, Eye, AlertTriangle, Play, Camera
 } from 'lucide-react';
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
@@ -240,8 +240,28 @@ const WalkerBookingsTab = () => {
                         </>
                       )}
 
+                      {booking.status === 'confirmed' && (
+                        <Button 
+                          size="sm" 
+                          onClick={() => navigate(`/bookings/${booking.id}`)}
+                          className="gap-1 bg-gradient-to-r from-primary to-accent hover:opacity-90"
+                        >
+                          <Play className="h-4 w-4" />
+                          Démarrer
+                        </Button>
+                      )}
+
                       {(booking.status === 'confirmed' || booking.status === 'in_progress') && (
                         <>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => navigate(`/bookings/${booking.id}`)}
+                            className="gap-1"
+                          >
+                            <Camera className="h-4 w-4" />
+                            Photo
+                          </Button>
                           <Button 
                             size="sm" 
                             variant="outline"
