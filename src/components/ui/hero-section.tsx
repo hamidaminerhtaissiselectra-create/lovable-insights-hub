@@ -69,32 +69,9 @@ export const HeroSection = () => {
         />
       </motion.div>
 
-      {/* Floating decorative elements */}
-      <motion.div
-        className="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/20 blur-2xl"
-        animate={{
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-40 right-20 w-32 h-32 rounded-full bg-accent/20 blur-3xl"
-        animate={{
-          y: [0, 20, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
+      {/* Static decorative elements - removed animations for performance */}
+      <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/20 blur-2xl" />
+      <div className="absolute bottom-40 right-20 w-32 h-32 rounded-full bg-accent/20 blur-3xl" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white pt-16 md:pt-0">
@@ -120,22 +97,9 @@ export const HeroSection = () => {
             className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 leading-tight"
           >
             Promenade de Chien{" "}
-            <motion.span 
-              className="bg-gradient-primary bg-clip-text text-transparent inline-block"
-              animate={{ 
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{ 
-                duration: 5, 
-                repeat: Infinity,
-                ease: "linear" 
-              }}
-              style={{
-                backgroundSize: "200% 200%",
-              }}
-            >
+            <span className="text-gradient inline-block">
               Partout en France
-            </motion.span>
+            </span>
           </motion.h1>
 
           <motion.p 
@@ -181,9 +145,9 @@ export const HeroSection = () => {
           <div className="mt-8 md:mt-12 grid grid-cols-2 md:flex md:justify-center items-center gap-4 md:gap-8 text-xs md:text-sm">
             {[
               { icon: Shield, text: "CNI & casier vérifiés", color: "text-primary" },
-              { icon: Star, text: "4.9/5 (2000+ avis)", color: "text-yellow-400" },
+              { icon: Star, text: "4.9/5 (2000+ avis)", color: "text-primary" },
               { icon: Clock, text: "Réponse < 1h", color: "text-accent" },
-              { icon: MapPin, text: "+50 villes", color: "text-destructive" },
+              { icon: MapPin, text: "+50 villes", color: "text-accent" },
             ].map((item, i) => (
               <motion.div 
                 key={i}
@@ -202,20 +166,12 @@ export const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-      >
+      {/* Scroll indicator - simplified */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2">
-          <motion.div
-            className="w-1.5 h-1.5 bg-white rounded-full"
-            animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          />
+          <div className="w-1.5 h-1.5 bg-white rounded-full" />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

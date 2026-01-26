@@ -30,36 +30,36 @@ export const WhySection = () => {
       icon: Users,
       title: "Mise en relation",
       description: "Connectez-vous avec des professionnels passionnés et vérifiés près de chez vous",
-      gradient: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-500/10 to-cyan-500/10"
+      gradient: "from-primary to-accent",
+      bgGradient: "from-primary/10 to-accent/10"
     },
     {
       icon: Heart,
       title: "Confiance",
       description: "Profils vérifiés, avis certifiés et preuves photo obligatoires à chaque prestation",
-      gradient: "from-rose-500 to-pink-500",
-      bgGradient: "from-rose-500/10 to-pink-500/10"
+      gradient: "from-primary to-primary/70",
+      bgGradient: "from-primary/10 to-primary/5"
     },
     {
       icon: MapPin,
       title: "Proximité",
       description: "Des promeneurs disponibles dans votre quartier, partout en France",
-      gradient: "from-emerald-500 to-teal-500",
-      bgGradient: "from-emerald-500/10 to-teal-500/10"
+      gradient: "from-accent to-primary",
+      bgGradient: "from-accent/10 to-primary/10"
     },
     {
       icon: Shield,
       title: "Sécurité",
       description: "Paiement escrow sécurisé, libéré uniquement après validation de la prestation",
-      gradient: "from-amber-500 to-orange-500",
-      bgGradient: "from-amber-500/10 to-orange-500/10"
+      gradient: "from-primary/80 to-accent",
+      bgGradient: "from-primary/10 to-accent/5"
     },
     {
       icon: Clock,
       title: "Flexibilité",
       description: "Réservez selon vos horaires, annulez facilement si besoin",
-      gradient: "from-purple-500 to-violet-500",
-      bgGradient: "from-purple-500/10 to-violet-500/10"
+      gradient: "from-accent to-accent/70",
+      bgGradient: "from-accent/10 to-accent/5"
     }
   ];
 

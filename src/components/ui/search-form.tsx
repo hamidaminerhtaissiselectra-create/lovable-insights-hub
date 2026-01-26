@@ -87,7 +87,7 @@ export const SearchForm = () => {
               onClick={() => setSelectedService(service.id)}
             >
               <RadioGroupItem value={service.id} id={service.id} className="border-primary" />
-              <Heart className="h-5 w-5 text-destructive fill-destructive" />
+              <Heart className="h-5 w-5 text-primary fill-primary/20" />
               <Label htmlFor={service.id} className="cursor-pointer flex-1 text-base font-medium">
                 {service.label}
               </Label>
@@ -115,7 +115,7 @@ export const SearchForm = () => {
               onClick={() => setSelectedService(service.id)}
             >
               <RadioGroupItem value={service.id} id={service.id} className="border-primary" />
-              <Heart className="h-5 w-5 text-destructive fill-destructive" />
+              <Heart className="h-5 w-5 text-primary fill-primary/20" />
               <Label htmlFor={service.id} className="cursor-pointer flex-1 text-base font-medium">
                 {service.label}
               </Label>
@@ -136,7 +136,7 @@ export const SearchForm = () => {
           )}
         </Label>
         <div className="relative">
-          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-destructive" />
+          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
           <Input 
             type="text" 
             placeholder={geoLoading ? "Détection de votre ville..." : "Ajoutez votre adresse"} 
